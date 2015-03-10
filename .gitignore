@@ -1,0 +1,8 @@
+abstract_factory
+adapter
+factory
+observer
+strategy
+
+*.o
+*.swp
