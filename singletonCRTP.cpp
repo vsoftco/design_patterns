@@ -13,6 +13,9 @@ protected:
     Singleton(const Singleton&) = delete; // to prevent CASE 3
     Singleton& operator=(const Singleton&) = delete; // to prevent CASE 4
     Singleton() noexcept = default; // to allow creation of Singleton<Foo>
+    // since otherwise the (deleted) copy constructor prevents the compiler
+    // from generating a default constructor
+    // declared protected to prevent CASE 5
 public:
     static T& get_instance()
     noexcept(std::is_nothrow_constructible<T>::value)
