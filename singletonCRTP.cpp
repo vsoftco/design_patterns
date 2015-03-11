@@ -8,8 +8,8 @@
 template <typename T>
 class Singleton
 {
-    void operator delete(void*) {} // to prevent CASE 2
 protected:
+    static void operator delete(void*) {} // to prevent CASE 2
     Singleton(const Singleton&) = delete; // to prevent CASE 3
     Singleton& operator=(const Singleton&) = delete; // to prevent CASE 4
     Singleton() noexcept = default; // to allow creation of Singleton<Foo>
@@ -29,6 +29,10 @@ public:
     {
         static T instance;
         return instance;
+    }
+    void suicide()
+    {
+        delete this;
     }
 };
 
