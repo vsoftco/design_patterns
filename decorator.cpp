@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 
-// Interface for Window and Decorator
+// interface for Window and Decorator
 struct IWindow
 {
     virtual void draw() = 0;
@@ -20,9 +20,10 @@ public:
     }
 };
 
+// basic Decorator
 class Decorator: public IWindow
 {
-    std::unique_ptr<IWindow> _window;
+    std::unique_ptr<IWindow> _window; // has a 
 public:
     explicit Decorator(std::unique_ptr<IWindow> window): _window(std::move(window)) {}
     void draw() override
@@ -31,7 +32,7 @@ public:
     }
 };
 
-// Add borders
+// add borders
 class BorderDecorator: public Decorator
 {
 public:
@@ -44,6 +45,7 @@ public:
     }
 };
 
+// add scrollbars
 class ScrollBarDecorator: public Decorator
 {
 public:
