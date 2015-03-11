@@ -95,7 +95,7 @@ int main()
     // display it
     decorated_fancy_window->draw();
 
-    // a basicly decorated window
+    // a basically decorated window
     std::unique_ptr<IWindow> basic_decorated_window =
         std::make_unique<Decorator>(
             std::make_unique<Window>()
