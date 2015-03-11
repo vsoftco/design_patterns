@@ -2,6 +2,7 @@ abstract_factory
 adapter
 factory
 observer
+singletonCRTP
 strategy
 
 *.o
