@@ -61,7 +61,7 @@ int main()
     Foo& sYetAnotherFoo = sFoo; // still OK, get the same instance
     sYetAnotherFoo.say_hello();
 
-    Foo& stlFoo = Foo::get_thread_local_instance(); // thread local instance
+    thread_local Foo& stlFoo = Foo::get_thread_local_instance(); // thread local instance
     stlFoo.say_hello();
 
     // CASE 1: error: 'Foo::Foo()' is private
