@@ -35,7 +35,8 @@ class Decorator: public IWindow
 {
     std::unique_ptr<IWindow> _window; // has a
 public:
-    explicit Decorator(std::unique_ptr<IWindow> window): _window(std::move(window)) {}
+    explicit Decorator(std::unique_ptr<IWindow> window):
+        _window(std::move(window)) {}
     void draw() override
     {
         _window->draw(); // delegate responsability
