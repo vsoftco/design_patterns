@@ -16,7 +16,7 @@ class OSXButton : public IWidget
 public:
 	void draw() override
 	{
-		std::cout << "\t OS X Button" << std::endl;
+		std::cout << "\tOS X Button" << std::endl;
 	}
 };
 
@@ -26,7 +26,7 @@ class OSXWindow : public IWidget
 public:
 	void draw() override
 	{
-		std::cout << "\t OS X Window" << std::endl;
+		std::cout << "\tOS X Window" << std::endl;
 	}
 };
 
@@ -36,7 +36,7 @@ class WinButton : public IWidget
 public:
 	void draw() override
 	{
-		std::cout << "\t Windows Button" << std::endl;
+		std::cout << "\tWindows Button" << std::endl;
 	}
 };
 
@@ -46,7 +46,7 @@ class WinWindow : public IWidget
 public:
 	void draw() override
 	{
-		std::cout << "\t Windows Window" << std::endl;
+		std::cout << "\tWindows Window" << std::endl;
 	}
 };
 

@@ -1,5 +1,6 @@
 abstract_factory
 adapter
+decorator
 factory
 observer
 singletonCRTP
