@@ -10,9 +10,9 @@ class Singleton
 {
     void operator delete(void*) {} // to prevent CASE 2
 protected:
-    Singleton() noexcept = default; // to prevent CASE 1
-    Singleton(const Singleton&) = delete; // to prevent CASE 4
-    Singleton& operator=(const Singleton&) = delete;
+    Singleton(const Singleton&) = delete; // to prevent CASE 3
+    Singleton& operator=(const Singleton&) = delete; // to prevent CASE 4
+    Singleton() noexcept = default; // to allow creation of Singleton<Foo>
 public:
     static T& get_instance()
     noexcept(std::is_nothrow_constructible<T>::value)
@@ -35,7 +35,7 @@ class Foo: public Singleton</*const*/ Foo>
 {
     // so Singleton<Foo> can access the constructor of Foo
     friend class Singleton<Foo>;
-    Foo() // to prevent CASE 3
+    Foo() // to prevent CASE 1
     {
         std::cout << "Foo::Foo() private constructor" << std::endl;
     }
@@ -65,20 +65,21 @@ int main()
     stlFoo.say_hello();
 
     // CASE 1: error: 'Foo::Foo()' is private
+    // Foo foo;
     // Foo* psFoo = new Foo;
 
     Foo* psFoo = &Foo::get_instance(); // OK to get pointer, not OK to delete
     psFoo->say_hello();
-    // CASE 2: error: use of deleted function
+    // CASE 2: error: 'static void Singleton<T>::operator delete(void*) 
+    // [with T = Foo]' is private
     // delete psFoo;
 
-    // CASE 3: error: 'Foo::Foo()' is private
-    // Foo foo;
-    // Foo* psFoo = new Foo;
-
-    // CASE 4: error: use of deleted function 'Foo::Foo(const Foo&)'
+    // CASE 3: error: use of deleted function 'Foo::Foo(const Foo&)'
     // Foo foo(sFoo);
 
-    // CASE 5: error: use of deleted function 'Foo& Foo::operator=(const Foo&)'
+    // CASE 4: error: use of deleted function 'Foo& Foo::operator=(const Foo&)'
     // sFoo = sAnotherFoo;
+
+    // CASE 5: error: 'Singleton<T>::Singleton() [with T = Foo]' is protected
+    // Singleton<Foo> direct_sFoo;
 }
