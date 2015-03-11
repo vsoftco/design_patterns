@@ -20,10 +20,20 @@ public:
     }
 };
 
+// fancy Window
+class FancyWindow: public Window
+{
+public:
+    void draw() override
+    {
+        std::cout << "Fancy Window" << std::endl;
+    }
+};
+
 // basic Decorator
 class Decorator: public IWindow
 {
-    std::unique_ptr<IWindow> _window; // has a 
+    std::unique_ptr<IWindow> _window; // has a
 public:
     explicit Decorator(std::unique_ptr<IWindow> window): _window(std::move(window)) {}
     void draw() override
@@ -60,6 +70,7 @@ public:
 
 int main()
 {
+    // decorate a basic Window
     std::unique_ptr<IWindow> decorated_window =
         std::make_unique<BorderDecorator>(
             std::make_unique<BorderDecorator>(
@@ -68,5 +79,26 @@ int main()
                 )
             )
         );
+    // display it
     decorated_window->draw();
+
+    // decorate a FancyWindow
+    std::unique_ptr<IWindow> decorated_fancy_window =
+        std::make_unique<BorderDecorator>(
+            std::make_unique<BorderDecorator>(
+                std::make_unique<ScrollBarDecorator>(
+                    std::make_unique<FancyWindow>()
+                )
+            )
+        );
+    // display it
+    decorated_fancy_window->draw();
+
+    // a basicly decorated window
+    std::unique_ptr<IWindow> basic_decorated_window =
+        std::make_unique<Decorator>(
+            std::make_unique<Window>()
+        );
+    // display it
+    basic_decorated_window->draw();
 }
