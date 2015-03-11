@@ -48,7 +48,6 @@ public:
     {
         draw_old();
     }
-
 };
 
 int main()
