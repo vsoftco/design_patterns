@@ -10,9 +10,9 @@ class Book
 {
 public:
     // interface
-    Book(const std::string& title, double price); 
+    Book(const std::string& title, double price);
     ~Book(); // need to define it AFTER the definition of Book::BookImpl
-    void print(); 
+    void print();
 private:
     struct BookImpl;
     std::unique_ptr<BookImpl> upBookImpl;
