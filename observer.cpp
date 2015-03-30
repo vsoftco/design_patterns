@@ -7,14 +7,14 @@
 #include <vector>
 
 // observer interface
-struct IObserver 
+struct IObserver
 {
     virtual void notify() = 0;
     virtual ~IObserver() = default;
 };
 
 // concrete observer
-class Observer: public IObserver 
+class Observer: public IObserver
 {
     std::size_t _ID;
 public:
@@ -30,7 +30,7 @@ public:
 };
 
 // subject interface
-struct ISubject 
+struct ISubject
 {
     virtual void registerObserver(std::shared_ptr<Observer> spo) = 0;
     virtual void unregisterObserver(std::shared_ptr<Observer> spo) = 0;
@@ -39,7 +39,7 @@ struct ISubject
 };
 
 // concrete subject
-class Subject: public ISubject 
+class Subject: public ISubject
 {
     std::map<std::size_t, std::shared_ptr<Observer>> _observers{};
 public:
@@ -76,7 +76,7 @@ int main()
 
     // notify
     std::cout << "Notifying all " << N << " Observers..." << std::endl;
-              subject.notifyObservers();
+    subject.notifyObservers();
 
     // un-register Observers 1 and 2
     std::cout << "Un-registering Observer 1 and Observer 2..." << std::endl;
