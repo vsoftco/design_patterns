@@ -15,7 +15,7 @@ protected:
     Singleton() noexcept = default; // to allow creation of Singleton<Foo>
     // by the derived class Foo, since otherwise the (deleted) 
     // copy constructor prevents the compiler from generating 
-    // a default constructor
+    // a default constructor;
     // declared protected to prevent CASE 5
 public:
     static T& get_instance()
@@ -31,10 +31,6 @@ public:
         static T instance;
         return instance;
     }
-    void suicide()
-    {
-        delete this;
-    }
 };
 
 // specific Singleton instance
@@ -47,14 +43,15 @@ class Foo: public Singleton</*const*/ Foo>
     {
         std::cout << "Foo::Foo() private constructor" << std::endl;
     }
+    // can be private, since Singleton<Foo> is a friend
+    ~Foo() 
+    {
+        std::cout << "Foo::~Foo() destructor" << std::endl;
+    }
 public:
     void say_hello()
     {
         std::cout << "\t Hello from Singleton" << std::endl;
-    }
-    ~Foo()
-    {
-        std::cout << "Foo::~Foo() destructor" << std::endl;
     }
 };
 
