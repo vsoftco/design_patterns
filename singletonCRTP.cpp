@@ -9,12 +9,11 @@ template <typename T>
 class Singleton
 {
 protected:
-    static void operator delete(void*) {} // to prevent CASE 2
     Singleton(const Singleton&) = delete; // to prevent CASE 3
     Singleton& operator=(const Singleton&) = delete; // to prevent CASE 4
     Singleton() noexcept = default; // to allow creation of Singleton<Foo>
-    // by the derived class Foo, since otherwise the (deleted) 
-    // copy constructor prevents the compiler from generating 
+    // by the derived class Foo, since otherwise the (deleted)
+    // copy constructor prevents the compiler from generating
     // a default constructor;
     // declared protected to prevent CASE 5
 public:
@@ -35,16 +34,17 @@ public:
 
 // specific Singleton instance
 // use const if you want a const instance returned
+// make the constructor and destructor private
 class Foo: public Singleton</*const*/ Foo>
 {
-    // so Singleton<Foo> can access the constructor of Foo
+    // so Singleton<Foo> can access the constructor and destructor of Foo
     friend class Singleton<Foo>;
     Foo() // to prevent CASE 1
     {
         std::cout << "Foo::Foo() private constructor" << std::endl;
     }
-    // can be private, since Singleton<Foo> is a friend
-    ~Foo() 
+    // OK to be private, since Singleton<Foo> is a friend and can invoke it
+    ~Foo() // to prevent CASE 2
     {
         std::cout << "Foo::~Foo() destructor" << std::endl;
     }
@@ -73,11 +73,10 @@ int main()
     // Foo foo;
     // Foo* psFoo = new Foo;
 
-    Foo* psFoo = &Foo::get_instance(); // OK to get pointer, not OK to delete
+    // CASE 2: error: 'Foo::~Foo()' is private
+    Foo* psFoo = &Foo::get_instance(); // can get pointer
     psFoo->say_hello();
-    // CASE 2: error: 'static void Singleton<T>::operator delete(void*) 
-    // [with T = Foo]' is private
-    // delete psFoo;
+    // delete psFoo; // cannot delete it
 
     // CASE 3: error: use of deleted function 'Foo::Foo(const Foo&)'
     // Foo foo(sFoo);
