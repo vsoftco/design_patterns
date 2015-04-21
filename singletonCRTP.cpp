@@ -46,7 +46,7 @@ class Foo: public Singleton</*const*/ Foo>
     // OK to be private, since Singleton<Foo> is a friend and can invoke it
     ~Foo() // to prevent CASE 2
     {
-        std::cout << "Foo::~Foo() destructor" << std::endl;
+        std::cout << "Foo::~Foo() private destructor" << std::endl;
     }
 public:
     void say_hello()
