@@ -1,10 +1,6 @@
-abstract_factory
-adapter
-decorator
-factory
-observer
-singletonCRTP
-strategy
-
+*
+!*.*
+.DS_Store
+.gitignore
 *.o
 *.swp
