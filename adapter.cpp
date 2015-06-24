@@ -57,6 +57,7 @@ int main()
     new_button.draw();
 
     // create old button via the interface of the new button
-    AdapterOldButton adapter_old_button(100, 100, 40, 10);
-    adapter_old_button.draw();
+    std::unique_ptr<IButton> adapter_old_button = 
+        std::make_unique<AdapterOldButton>(100, 100, 40, 10);
+    adapter_old_button->draw();
 }
