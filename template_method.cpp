@@ -24,6 +24,6 @@ class Derived: public Base
 
 int main()
 {
-    auto pBase = std::make_unique<Derived>();
+    std::unique_ptr<Base> pBase = std::make_unique<Derived>();
     pBase -> call();
 }
