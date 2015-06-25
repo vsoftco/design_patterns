@@ -75,6 +75,7 @@ public:
     void play(Dog&) override
     {
         std::cout << "Bird plays with Dog" << std::endl;
+    }
 };
 
 void play(IAnimal& first, IAnimal& second)
