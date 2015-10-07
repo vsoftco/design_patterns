@@ -10,7 +10,7 @@ struct Interface
     virtual ~Interface() = default;
 };
 
-// First implementation
+// first implementation
 struct Impl1: Interface
 {
     void A() override
@@ -24,7 +24,7 @@ struct Impl1: Interface
     }
 };
 
-// Second implementation
+// second implementation
 struct Impl2: Interface
 {
     void A() override
@@ -38,7 +38,7 @@ struct Impl2: Interface
     }
 };
 
-// Concrete class that can change its interface
+// concrete class that can change its interface
 class Foo
 {
     std::unique_ptr<Interface> _ptr_impl;
