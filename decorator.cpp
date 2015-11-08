@@ -39,7 +39,7 @@ public:
         _window(std::move(window)) {}
     void draw() override
     {
-        _window->draw(); // delegate responsability
+        _window->draw(); // delegate responsibility
     }
 };
 
