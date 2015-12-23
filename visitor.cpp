@@ -56,7 +56,7 @@ public:
 // accept the visitor(s)
 void Car::accept(IVisitor& visitor)
 {
-    visitor.visit(*this);
+    visitor.visit(*this); // double dispatching
 }
 
 void Plane::accept(IVisitor& visitor)
