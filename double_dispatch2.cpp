@@ -63,17 +63,17 @@ void dog_bird(IAnimal& dog, IAnimal& bird)
 // assume symmetry for the other way around
 void dog_cat(IAnimal& dog, IAnimal& cat)
 {
-    cat_dog(cat, dog);
+    cat_dog(dog, cat); // reverse the animals
 }
 
 void bird_cat(IAnimal& bird, IAnimal& cat)
 {
-    cat_bird(cat, bird);
+    cat_bird(bird, cat); // reverse the animals
 }
 
 void bird_dog(IAnimal& bird, IAnimal& dog)
 {
-    dog_bird(bird, dog);
+    dog_bird(bird, dog); // reverse the animals
 }
 
 // now add the dispatching functions to the map
@@ -120,6 +120,14 @@ int main()
     play(*upBird, *upCat);
     play(*upBird, *upDog);
 
+    
     // this line throws, animals don't play with the same species
-    play(*upDog, *upDog);
+    try
+    {
+        play(*upDog, *upDog);
+    }
+    catch(...)
+    {
+        std::cerr << "No dispatching function!\n";
+    }
 }
