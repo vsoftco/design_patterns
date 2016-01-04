@@ -44,7 +44,7 @@ class Foo
     std::unique_ptr<Interface> _ptr_impl;
 public:
     explicit Foo(std::unique_ptr<Interface> ptr_impl) :
-        _ptr_impl(std::move(ptr_impl)) {}
+        _ptr_impl{std::move(ptr_impl)} {}
     void set_interface(std::unique_ptr<Interface> ptr_impl)
     {
         _ptr_impl = std::move(ptr_impl);
@@ -62,7 +62,7 @@ public:
 int main()
 {
     // default interface
-    Foo foo(std::make_unique<Impl1>());
+    Foo foo{std::make_unique<Impl1>()};
     foo.A();
     foo.B();
 

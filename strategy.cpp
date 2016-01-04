@@ -7,7 +7,7 @@
 // strategy interface
 struct IFlies
 {
-	virtual std::string fly() = 0; // the algorithm (strategy)
+	virtual std::string fly() const = 0; // the algorithm (strategy)
 	virtual ~IFlies() = default;
 };
 
@@ -15,7 +15,7 @@ struct IFlies
 class Flies: public IFlies
 {
 public:
-	std::string fly() override
+	std::string fly() const override
 	{
 		return "Flying high!";
 	}
@@ -25,7 +25,7 @@ public:
 class CantFly: public IFlies
 {
 public:
-	std::string fly() override
+	std::string fly() const override
 	{
 		return "Can't fly :(";
 	}
@@ -38,13 +38,13 @@ private:
 	std::unique_ptr<IFlies> _flying_type;
 public:
 	explicit Animal(std::unique_ptr<IFlies> flying_type) :
-		_flying_type(std::move(flying_type)) {}
+		_flying_type{std::move(flying_type)} {}
 
 	void set_flying_ability(std::unique_ptr<IFlies> flying_type)
 	{
 		_flying_type = std::move(flying_type);
 	}
-	void try_to_fly()
+	void try_to_fly() const
 	{
 		std::cout << '\t' << _flying_type->fly() << std::endl;
 	}

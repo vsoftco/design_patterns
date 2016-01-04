@@ -16,7 +16,7 @@ public:
 class Car: public IObject
 {
 public:
-    std::string car()
+    std::string car() const
     {
         return "Car";
     }
@@ -26,7 +26,7 @@ public:
 class Plane: public IObject
 {
 public:
-    std::string plane()
+    std::string plane() const
     {
         return "Plane";
     }
@@ -36,7 +36,7 @@ public:
 class Train: public IObject
 {
 public:
-    std::string train()
+    std::string train() const
     {
         return "Train";
     }
@@ -121,7 +121,7 @@ int main()
     VisitorTwo vis_two;
 
     // first visitor
-    for (auto && elem : objects)
+    for (auto&& elem : objects)
     {
         elem.get().accept(vis_one);
     }

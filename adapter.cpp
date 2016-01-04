@@ -9,8 +9,8 @@ class OldButton
     int _x1, _y1, _x2, _y2;
 public:
     OldButton(int x1, int y1, int x2, int y2):
-        _x1(x1), _y1(y1), _x2(x2), _y2(y2) {}
-    void draw_old()
+        _x1{x1}, _y1{y1}, _x2{x2}, _y2{y2} {}
+    void draw_old() const
     {
         std::cout << "Old button. Coordinates: (" << _x1 << ", " << _y1
                   << "), (" << _x2 << ", " << _y2 << ")" << std::endl;
@@ -20,7 +20,7 @@ public:
 // our shinny new button interface
 struct IButton
 {
-    virtual void draw() = 0;
+    virtual void draw() const = 0;
     virtual ~IButton() = default;
 };
 
@@ -30,8 +30,8 @@ class Button: public IButton
     int _x1, _y1, _x2, _y2;
 public:
     Button(int x, int y, int length, int height):
-        _x1(x), _y1(y), _x2(x + length), _y2(y + height) {}
-    void draw() override
+        _x1{x}, _y1{y}, _x2{x + length}, _y2{y + height} {}
+    void draw() const override
     {
         std::cout << "New button. Coordinates: (" << _x1 << ", " << _y1
                   << "), (" << _x2 << ", " << _y2 << ")" << std::endl;
@@ -44,7 +44,7 @@ class AdapterOldButton: public IButton, private OldButton
 public:
     AdapterOldButton(int x, int y, int length, int height):
         OldButton(x, y, x + length, y + height) {}
-    void draw() override
+    void draw() const override
     {
         draw_old();
     }

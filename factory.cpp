@@ -7,7 +7,7 @@
 // interface for common products that will be created by the factory
 struct IFruit
 {
-	virtual std::string get_name() = 0;
+	virtual std::string get_name() const = 0;
 	virtual ~IFruit() = default;
 };
 
@@ -15,7 +15,7 @@ struct IFruit
 class Apple: public IFruit
 {
 public:
-	std::string get_name() override
+	std::string get_name() const override
 	{
 		return "apple";
 	}
@@ -25,7 +25,7 @@ public:
 class BigApple: public Apple
 {
 public:
-	std::string get_name() override
+	std::string get_name() const override
 	{
 		return "big apple";
 	}
@@ -35,7 +35,7 @@ public:
 class Orange: public IFruit
 {
 public:
-	std::string get_name() override
+	std::string get_name() const override
 	{
 		return "orange";
 	}

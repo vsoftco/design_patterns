@@ -9,7 +9,7 @@
 // observer interface
 struct IObserver
 {
-    virtual void notify() = 0;
+    virtual void notify() const = 0;
     virtual ~IObserver() = default;
 };
 
@@ -18,12 +18,12 @@ class Observer: public IObserver
 {
     std::size_t _ID;
 public:
-    explicit Observer(std::size_t ID): _ID(ID) {}
-    void notify() override
+    explicit Observer(std::size_t ID): _ID{ID} {}
+    void notify() const override
     {
         std::cout << "\tObserver " << _ID << " notified!" << std::endl;
     }
-    std::size_t ID()
+    std::size_t ID() const
     {
         return _ID;
     }
@@ -34,7 +34,7 @@ struct ISubject
 {
     virtual void registerObserver(std::shared_ptr<Observer> spo) = 0;
     virtual void unregisterObserver(std::shared_ptr<Observer> spo) = 0;
-    virtual void notifyObservers() = 0;
+    virtual void notifyObservers() const = 0;
     virtual ~ISubject() = default;
 };
 
@@ -51,7 +51,7 @@ public:
     {
         _observers.erase(spo->ID());
     }
-    void notifyObservers() override
+    void notifyObservers() const override
     {
         for (auto& elem : _observers)
             elem.second->notify();

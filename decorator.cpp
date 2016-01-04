@@ -6,7 +6,7 @@
 // interface for Window and Decorator
 struct IWindow
 {
-    virtual void draw() = 0;
+    virtual void draw() const = 0;
     virtual ~IWindow() = default;
 };
 
@@ -14,7 +14,7 @@ struct IWindow
 class Window: public IWindow
 {
 public:
-    void draw() override
+    void draw() const override
     {
         std::cout << "Basic Window" << std::endl;
     }
@@ -24,7 +24,7 @@ public:
 class FancyWindow: public Window
 {
 public:
-    void draw() override
+    void draw() const override
     {
         std::cout << "Fancy Window" << std::endl;
     }
@@ -36,8 +36,8 @@ class Decorator: public IWindow
     std::unique_ptr<IWindow> _window; // has a
 public:
     explicit Decorator(std::unique_ptr<IWindow> window):
-        _window(std::move(window)) {}
-    void draw() override
+        _window{std::move(window)} {}
+    void draw() const override
     {
         _window->draw(); // delegate responsibility
     }
@@ -49,7 +49,7 @@ class BorderDecorator: public Decorator
 public:
     explicit BorderDecorator(std::unique_ptr<IWindow> window):
         Decorator(std::move(window)) {}
-    void draw() override
+    void draw() const override
     {
         Decorator::draw();
         std::cout << "\twith Border" << std::endl;
@@ -62,7 +62,7 @@ class ScrollBarDecorator: public Decorator
 public:
     explicit ScrollBarDecorator(std::unique_ptr<IWindow> window):
         Decorator(std::move(window)) {}
-    void draw() override
+    void draw() const override
     {
         Decorator::draw();
         std::cout << "\twith ScrollBar" << std::endl;

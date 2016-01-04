@@ -10,7 +10,7 @@
 
 struct IAnimal
 {
-    virtual std::string name() = 0;
+    virtual std::string name() const = 0;
     virtual ~IAnimal() = default;
 };
 
@@ -22,7 +22,7 @@ PLAY_MAP play_map; // dispatching function map
 class Cat: public IAnimal
 {
 public:
-    std::string name() override
+    std::string name() const override
     {
         return "Cat";
     }
@@ -30,7 +30,7 @@ public:
 class Dog: public IAnimal
 {
 public:
-    std::string name() override
+    std::string name() const override
     {
         return "Dog";
     }
@@ -38,7 +38,7 @@ public:
 class Bird: public IAnimal
 {
 public:
-    std::string name() override
+    std::string name() const override
     {
         return "Bird";
     }
@@ -108,9 +108,9 @@ void play(IAnimal& first, IAnimal& second)
 int main()
 {
     populate_play_map();
-    std::unique_ptr<IAnimal> upCat{new Cat};
-    std::unique_ptr<IAnimal> upDog{new Dog};
-    std::unique_ptr<IAnimal> upBird{new Bird};
+    std::unique_ptr<IAnimal> upCat{std::make_unique<Cat>()};
+    std::unique_ptr<IAnimal> upDog{std::make_unique<Dog>()};
+    std::unique_ptr<IAnimal> upBird{std::make_unique<Bird>()};
 
     play(*upCat, *upDog);
     play(*upCat, *upBird);

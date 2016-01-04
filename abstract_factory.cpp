@@ -6,7 +6,7 @@
 // abstract product
 struct IWidget
 {
-	virtual void draw() = 0;
+	virtual void draw() const = 0;
 	virtual ~IWidget() = default;
 };
 
@@ -14,7 +14,7 @@ struct IWidget
 class OSXButton : public IWidget
 {
 public:
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "\tOS X Button" << std::endl;
 	}
@@ -24,7 +24,7 @@ public:
 class OSXWindow : public IWidget
 {
 public:
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "\tOS X Window" << std::endl;
 	}
@@ -34,7 +34,7 @@ public:
 class WinButton : public IWidget
 {
 public:
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "\tWindows Button" << std::endl;
 	}
@@ -44,7 +44,7 @@ public:
 class WinWindow : public IWidget
 {
 public:
-	void draw() override
+	void draw() const override
 	{
 		std::cout << "\tWindows Window" << std::endl;
 	}
@@ -109,7 +109,7 @@ class SuperFactory : public IFactory
 	std::unique_ptr<IFactory> _factory;
 public:
 	explicit SuperFactory(std::unique_ptr<IFactory> factory) :
-		_factory(std::move(factory))
+		_factory{std::move(factory)}
 	{
 		std::cout << "Creating the SuperFactory..." << std::endl;
 	}
@@ -135,7 +135,7 @@ public:
 int main()
 {
 	// Direct usage of Abstract factory pattern
-	std::unique_ptr<IFactory> factory = std::make_unique<OSXFactory>();
+	std::unique_ptr<IFactory> factory{std::make_unique<OSXFactory>()};
 	factory->create_button()->draw();
 	factory->create_window()->draw();
 	std::cout << "--------" << std::endl;
