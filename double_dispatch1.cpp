@@ -10,10 +10,10 @@ class Dog;
 struct IAnimal
 {
     virtual std::string name() const = 0;
-    virtual void play(IAnimal&) = 0;
-    virtual void play(Cat&) = 0;
-    virtual void play(Bird&) = 0;
-    virtual void play(Dog&) = 0;
+    virtual void play(const IAnimal&) const = 0;
+    virtual void play(const Cat&) const  = 0;
+    virtual void play(const Bird&) const = 0;
+    virtual void play(const Dog&) const = 0;
     virtual ~IAnimal() = default;
 };
 
@@ -24,13 +24,13 @@ public:
     {
         return "Cat";
     }
-    void play(IAnimal& animal) override
+    void play(const IAnimal& animal) const override
     {
         animal.play(*this);
     }
-    void play(Cat&) override;
-    void play(Dog&) override;
-    void play(Bird&) override;
+    void play(const Cat&) const override;
+    void play(const Dog&) const override;
+    void play(const Bird&) const override;
 };
 
 class Dog: public IAnimal
@@ -40,13 +40,13 @@ public:
     {
         return "Dog";
     }
-    void play(IAnimal& animal) override
+    void play(const IAnimal& animal) const override
     {
         animal.play(*this);
     }
-    void play(Cat&) override;
-    void play(Dog&) override;
-    void play(Bird&) override;
+    void play(const Cat&) const override;
+    void play(const Dog&) const override;
+    void play(const Bird&) const override;
 };
 
 class Bird: public IAnimal
@@ -56,55 +56,55 @@ public:
     {
         return "Bird";
     }
-    void play(IAnimal& animal) override
+    void play(const IAnimal& animal) const override
     {
         animal.play(*this);
     }
-    void play(Cat&) override;
-    void play(Dog&) override;
-    void play(Bird&) override;
+    void play(const Cat&) const override;
+    void play(const Dog&) const override;
+    void play(const Bird&) const override;
 };
 
-void Cat::play(Cat& cat)
+void Cat::play(const Cat& cat) const
 {
     std::cout << name() << " plays with " << cat.name() << std::endl;
 }
-void Cat::play(Bird& bird)
+void Cat::play(const Bird& bird) const
 {
     std::cout << name() << " plays with " << bird.name() << std::endl;
 }
-void Cat::play(Dog& dog)
+void Cat::play(const Dog& dog) const
 {
     std::cout << name() << " plays with " << dog.name() << std::endl;
 }
 
-void Dog::play(Cat& cat)
+void Dog::play(const Cat& cat) const
 {
     std::cout << name() << " plays with " << cat.name() << std::endl;
 }
-void Dog::play(Bird& bird)
+void Dog::play(const Bird& bird) const
 {
     std::cout << name() << " plays with " << bird.name() << std::endl;
 }
-void Dog::play(Dog& dog)
+void Dog::play(const Dog& dog) const
 {
     std::cout << name() << " plays with " << dog.name() << std::endl;
 }
 
-void Bird::play(Cat& cat)
+void Bird::play(const Cat& cat) const
 {
     std::cout << name() << " plays with " << cat.name() << std::endl;
 }
-void Bird::play(Bird& bird)
+void Bird::play(const Bird& bird) const
 {
     std::cout << name() << " plays with " << bird.name() << std::endl;
 }
-void Bird::play(Dog& dog)
+void Bird::play(const Dog& dog) const
 {
     std::cout << name() << " plays with " << dog.name() << std::endl;
 }
 
-void play(IAnimal& first, IAnimal& second)
+void play(const IAnimal& first, const IAnimal& second)
 {
     second.play(first);
 }
