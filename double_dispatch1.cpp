@@ -27,7 +27,7 @@ public:
     }
     void play(const IAnimal& animal) const override
     {
-        animal.play(*this);
+        animal.play(*this); // double dispatching
     }
     void play(const Cat&) const override;
     void play(const Dog&) const override;
@@ -43,7 +43,7 @@ public:
     }
     void play(const IAnimal& animal) const override
     {
-        animal.play(*this);
+        animal.play(*this); // double dispatching
     }
     void play(const Cat&) const override;
     void play(const Dog&) const override;
@@ -59,7 +59,7 @@ public:
     }
     void play(const IAnimal& animal) const override
     {
-        animal.play(*this);
+        animal.play(*this); // double dispatching
     }
     void play(const Cat&) const override;
     void play(const Dog&) const override;

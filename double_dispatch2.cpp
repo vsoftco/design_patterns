@@ -14,7 +14,7 @@ struct IAnimal
     virtual ~IAnimal() = default;
 };
 
-using FPTR = void(*)(IAnimal& first, IAnimal& second);
+using FPTR = void(*)(const IAnimal& first, const IAnimal& second);
 using PLAY_MAP = std::map<std::pair<std::type_index, std::type_index>, FPTR>;
 
 PLAY_MAP play_map; // dispatching function map
@@ -45,33 +45,33 @@ public:
 };
 
 // pair-wise interactions
-void cat_dog(IAnimal& cat, IAnimal& dog)
+void cat_dog(const IAnimal& cat, const IAnimal& dog)
 {
     std::cout << cat.name() << " plays with " << dog.name() << std::endl;
 }
 
-void cat_bird(IAnimal& cat, IAnimal& bird)
+void cat_bird(const IAnimal& cat, const IAnimal& bird)
 {
     std::cout << cat.name() << " plays with " << bird.name() << std::endl;
 }
 
-void dog_bird(IAnimal& dog, IAnimal& bird)
+void dog_bird(const IAnimal& dog, const IAnimal& bird)
 {
     std::cout << dog.name() << " plays with " << bird.name() << std::endl;
 }
 
 // assume symmetry for the other way around
-void dog_cat(IAnimal& dog, IAnimal& cat)
+void dog_cat(const IAnimal& dog, const IAnimal& cat)
 {
     cat_dog(dog, cat); // reverse the animals
 }
 
-void bird_cat(IAnimal& bird, IAnimal& cat)
+void bird_cat(const IAnimal& bird, const IAnimal& cat)
 {
     cat_bird(bird, cat); // reverse the animals
 }
 
-void bird_dog(IAnimal& bird, IAnimal& dog)
+void bird_dog(const IAnimal& bird, const IAnimal& dog)
 {
     dog_bird(bird, dog); // reverse the animals
 }
@@ -94,7 +94,7 @@ void populate_play_map()
 }
 
 // finally double dispatch
-void play(IAnimal& first, IAnimal& second)
+void play(const IAnimal& first, const IAnimal& second)
 {
     auto type_idx_first = std::type_index(typeid(first));
     auto type_idx_second = std::type_index(typeid(second));
