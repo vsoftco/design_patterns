@@ -22,7 +22,7 @@ class ICommand
 protected:
     IDevice& device_;
 public:
-    ICommand(IDevice& device): device_(device) {}
+    ICommand(IDevice& device): device_{device} {}
     virtual void execute() = 0;
     virtual void undo() = 0;
 };
