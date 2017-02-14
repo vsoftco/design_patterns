@@ -13,17 +13,17 @@ struct IState
 class Context
 {
 protected:
-    std::shared_ptr<IState> _state;
+    std::shared_ptr<IState> state_;
 public:
-    Context(std::shared_ptr<IState> state = nullptr): _state{state} {}
-    void set_state(std::shared_ptr<IState> state)
+    Context(std::shared_ptr<IState> state = nullptr): state_{state} {}
+    void setstate_(std::shared_ptr<IState> state)
     {
-        _state = state;
+        state_ = state;
     }
 
-    std::shared_ptr<IState> get_state()
+    std::shared_ptr<IState> getstate_()
     {
-        return _state;
+        return state_;
     }
 };
 
@@ -33,7 +33,7 @@ class ON: public IState, public std::enable_shared_from_this<ON>
 public:
     void do_action(Context& context) override
     {
-        context.set_state(shared_from_this());
+        context.setstate_(shared_from_this());
         std::cout << "The state is ON\n";
     }
 };
@@ -43,7 +43,7 @@ class OFF: public IState, public std::enable_shared_from_this<OFF>
 public:
     void do_action(Context& context) override
     {
-        context.set_state(shared_from_this());
+        context.setstate_(shared_from_this());
         std::cout << "The state is OFF\n";
     }
 };
@@ -54,10 +54,10 @@ int main()
     Context context;
 
     // states
-    auto on_state = std::make_shared<ON>();
-    auto off_state = std::make_shared<OFF>();
+    auto onstate_ = std::make_shared<ON>();
+    auto offstate_ = std::make_shared<OFF>();
 
-    on_state->do_action(context);
-    off_state->do_action(context);
-    off_state->do_action(context);
+    onstate_->do_action(context);
+    offstate_->do_action(context);
+    offstate_->do_action(context);
 }
