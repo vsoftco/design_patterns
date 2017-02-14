@@ -54,10 +54,10 @@ int main()
     Context context;
 
     // states
-    auto onstate_ = std::make_shared<ON>();
-    auto offstate_ = std::make_shared<OFF>();
+    auto onstate = std::make_shared<ON>();
+    auto offstate = std::make_shared<OFF>();
 
-    onstate_->do_action(context);
-    offstate_->do_action(context);
-    offstate_->do_action(context);
+    onstate->do_action(context);
+    offstate->do_action(context);
+    offstate->do_action(context);
 }
