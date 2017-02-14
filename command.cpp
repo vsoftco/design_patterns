@@ -1,6 +1,7 @@
 // Command design pattern
 
 #include <iostream>
+#include <cstddef>
 
 // device interface (receivers)
 class IDevice
@@ -127,10 +128,11 @@ int main()
     Turn_UP turn_up(tv);
     Turn_DOWN turn_down(tv);
 
+    // execute/undo the commands
     turn_on.execute(); // execute
     turn_off.execute();
     turn_off.undo();   // undo
-
+    
     turn_up.execute();
     turn_up.execute();
     turn_down.execute();
