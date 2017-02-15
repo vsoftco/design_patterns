@@ -1,7 +1,7 @@
 // Command design pattern
 
-#include <iostream>
 #include <cstddef>
+#include <iostream>
 
 // device interface (receivers)
 class IDevice
