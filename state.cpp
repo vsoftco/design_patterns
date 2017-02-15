@@ -50,6 +50,7 @@ void Caps_ON::write(Type_Writter& type_writter, std::string what)
     std::cout << what;
     type_writter.set_state(std::make_unique<Caps_OFF>()); // flip the state
 }
+
 void Caps_OFF::write(Type_Writter& type_writter, std::string what)
 {
     std::transform(std::begin(what), std::end(what), std::begin(what), ::tolower);
