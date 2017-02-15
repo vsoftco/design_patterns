@@ -1,63 +1,72 @@
 // State design pattern
 
+#include <algorithm>
+#include <cctype>
 #include <iostream>
 #include <memory>
+#include <string>
 
 // state interface
 struct IState
 {
-    virtual void do_action(class Context&) = 0;
+    virtual void write(class Type_Writter&, std::string what) = 0;
 };
 
-// concrete context
-class Context
+// context, we model a type writter with 2 states: Caps ON and Caps OFF
+// that keep switching automatically
+class Type_Writter
 {
 protected:
-    std::shared_ptr<IState> state_;
+    std::unique_ptr<IState> state_;
 public:
-    Context(std::shared_ptr<IState> state = nullptr): state_{state} {}
-    void setstate_(std::shared_ptr<IState> state)
+    Type_Writter(std::unique_ptr<IState> state): state_{std::move(state)} {}
+    void set_state(std::unique_ptr<IState> state)
     {
-        state_ = state;
+        state_ = std::move(state);
     }
-
-    std::shared_ptr<IState> getstate_()
+    void write(const std::string& what)
     {
-        return state_;
+        state_->write(*this, what);
     }
 };
 
 // concrete states
-class ON: public IState, public std::enable_shared_from_this<ON>
+class Caps_ON: public IState
 {
 public:
-    void do_action(Context& context) override
-    {
-        context.setstate_(shared_from_this());
-        std::cout << "The state is ON\n";
-    }
+    void write(Type_Writter& type_writter, std::string what) override;
 };
 
-class OFF: public IState, public std::enable_shared_from_this<OFF>
+class Caps_OFF: public IState
 {
 public:
-    void do_action(Context& context) override
-    {
-        context.setstate_(shared_from_this());
-        std::cout << "The state is OFF\n";
-    }
+    void write(Type_Writter& type_writter, std::string what) override;
 };
+
+// implementation of concrete states
+void Caps_ON::write(Type_Writter& type_writter, std::string what)
+{
+    std::transform(std::begin(what), std::end(what), std::begin(what), ::toupper);
+    std::cout << what;
+    type_writter.set_state(std::make_unique<Caps_OFF>()); // flip the state
+}
+void Caps_OFF::write(Type_Writter& type_writter, std::string what)
+{
+    std::transform(std::begin(what), std::end(what), std::begin(what), ::tolower);
+    std::cout << what;
+    type_writter.set_state(std::make_unique<Caps_ON>()); // flip the state
+}
 
 int main()
 {
-    // context
-    Context context;
+    // the context
+    Type_Writter type_writter{std::make_unique<Caps_OFF>()};
 
-    // states
-    auto onstate = std::make_shared<ON>();
-    auto offstate = std::make_shared<OFF>();
-
-    onstate->do_action(context);
-    offstate->do_action(context);
-    offstate->do_action(context);
+    // the state machine in action
+    type_writter.write("Hello ");
+    type_writter.write("World!\n");
+    type_writter.write("This ");
+    type_writter.write("is ");
+    type_writter.write("a ");
+    type_writter.write("test.\n");
 }
