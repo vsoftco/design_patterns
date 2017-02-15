@@ -14,6 +14,7 @@ public:
     virtual void off() = 0;
     virtual void up() = 0;
     virtual void down() = 0;
+    virtual ~IDevice() = default;
 };
 
 // command interface
@@ -25,6 +26,7 @@ public:
     ICommand(IDevice& device): device_{device} {}
     virtual void execute() = 0;
     virtual void undo() = 0;
+    virtual ~ICommand() = default;
 };
 
 // devices

@@ -9,7 +9,8 @@
 // state interface
 struct IState
 {
-    virtual void write(class Type_Writter&, std::string what) = 0;
+    virtual void write(class Type_Writter& type_writter, std::string what) = 0;
+    virtual ~IState() = default;
 };
 
 // context, we model a type writter with 2 states: Caps ON and Caps OFF
