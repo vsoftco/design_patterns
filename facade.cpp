@@ -86,7 +86,6 @@ public:
 class Scooter_Facade: public IFacade
 {
     Engine engine_{};
-    Gear_Box gear_box_{};
 public:
     void start() const
     {
