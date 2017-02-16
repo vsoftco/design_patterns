@@ -21,7 +21,7 @@ public:
     explicit Observer(std::size_t ID): _ID{ID} {}
     void notify() const override
     {
-        std::cout << "\tObserver " << _ID << " notified!" << std::endl;
+        std::cout << "\tObserver " << _ID << " notified!\n";
     }
     std::size_t ID() const
     {
@@ -70,20 +70,20 @@ int main()
         vobs.push_back(std::make_shared<Observer>(i));
 
     // register all of them
-    std::cout << "Registering all " << N << " Observers..." << std::endl;
+    std::cout << "Registering all " << N << " Observers...\n";
     for (std::size_t i = 0; i < vobs.size(); ++i)
         subject.registerObserver(vobs[i]);
 
     // notify
-    std::cout << "Notifying all " << N << " Observers..." << std::endl;
+    std::cout << "Notifying all " << N << " Observers...\n";
     subject.notifyObservers();
 
     // un-register Observers 1 and 2
-    std::cout << "Un-registering Observer 1 and Observer 2..." << std::endl;
+    std::cout << "Un-registering Observer 1 and Observer 2...\n";
     subject.unregisterObserver(vobs[1]);
     subject.unregisterObserver(vobs[2]);
 
     // notify
-    std::cout << "Notifying remaining Observers:" << std::endl;
+    std::cout << "Notifying remaining Observers:\n";
     subject.notifyObservers();
 }

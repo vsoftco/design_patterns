@@ -16,7 +16,7 @@ class OSXButton : public IWidget
 public:
     void draw() const override
     {
-        std::cout << "\tOS X Button" << std::endl;
+        std::cout << "\tOS X Button" << '\n';
     }
 };
 
@@ -26,7 +26,7 @@ class OSXWindow : public IWidget
 public:
     void draw() const override
     {
-        std::cout << "\tOS X Window" << std::endl;
+        std::cout << "\tOS X Window" << '\n';
     }
 };
 
@@ -36,7 +36,7 @@ class WinButton : public IWidget
 public:
     void draw() const override
     {
-        std::cout << "\tWindows Button" << std::endl;
+        std::cout << "\tWindows Button" << '\n';
     }
 };
 
@@ -46,7 +46,7 @@ class WinWindow : public IWidget
 public:
     void draw() const override
     {
-        std::cout << "\tWindows Window" << std::endl;
+        std::cout << "\tWindows Window" << '\n';
     }
 };
 
@@ -64,7 +64,7 @@ class OSXFactory : public IFactory
 public:
     OSXFactory()
     {
-        std::cout << "Creating the OSXFactory..." << std::endl;
+        std::cout << "Creating the OSXFactory..." << '\n';
     }
     std::unique_ptr<IWidget> create_button()
     {
@@ -76,7 +76,7 @@ public:
     }
     virtual ~OSXFactory()
     {
-        std::cout << "Destroying the OSXFactory..." << std::endl;
+        std::cout << "Destroying the OSXFactory..." << '\n';
     }
 };
 
@@ -86,7 +86,7 @@ class WinFactory : public IFactory
 public:
     WinFactory()
     {
-        std::cout << "Creating the WinFactory..." << std::endl;
+        std::cout << "Creating the WinFactory..." << '\n';
     }
     std::unique_ptr<IWidget> create_button()
     {
@@ -98,7 +98,7 @@ public:
     }
     virtual ~WinFactory()
     {
-        std::cout << "Destroying the WinFactory..." << std::endl;
+        std::cout << "Destroying the WinFactory..." << '\n';
     }
 
 };
@@ -111,11 +111,11 @@ public:
     explicit SuperFactory(std::unique_ptr<IFactory> factory) :
         _factory{std::move(factory)}
     {
-        std::cout << "Creating the SuperFactory..." << std::endl;
+        std::cout << "Creating the SuperFactory..." << '\n';
     }
     void set_factory(std::unique_ptr<IFactory> factory)
     {
-        std::cout << "Changing the IFactory strategy" << std::endl;
+        std::cout << "Changing the IFactory strategy" << '\n';
         _factory = std::move(factory);
     }
     std::unique_ptr<IWidget> create_button()
@@ -128,7 +128,7 @@ public:
     }
     ~SuperFactory()
     {
-        std::cout << "Destroying the SuperFactory..." << std::endl;
+        std::cout << "Destroying the SuperFactory..." << '\n';
     }
 };
 
@@ -138,17 +138,17 @@ int main()
     std::unique_ptr<IFactory> factory{std::make_unique<OSXFactory>()};
     factory->create_button()->draw();
     factory->create_window()->draw();
-    std::cout << "--------" << std::endl;
+    std::cout << "--------" << '\n';
 
     factory = std::make_unique<WinFactory>();
     factory->create_button()->draw();
     factory->create_window()->draw();
-    std::cout << "--------" << std::endl;
+    std::cout << "--------" << '\n';
 
     // Usage via the Strategy pattern
     SuperFactory super_factory(std::make_unique<OSXFactory>());
     super_factory.create_button()->draw();
     super_factory.set_factory(std::move(factory));
     super_factory.create_window()->draw();
-    std::cout << "--------" << std::endl;
+    std::cout << "--------" << '\n';
 }

@@ -5,13 +5,13 @@
 
 class Base
 {
-    virtual void f() {std::cout << "Base::f()" << std::endl;}
+    virtual void f() {std::cout << "Base::f()\n";}
 public:
     void call()
     {
-        std::cout << "Before calling f()" << std::endl;
+        std::cout << "Before calling f()\n";
         f(); // run-time dispatch
-        std::cout << "After calling f()" << std::endl;
+        std::cout << "After calling f()\n";
     }
     virtual ~Base() = default;
 };
@@ -19,7 +19,7 @@ public:
 class Derived: public Base
 {
     // change behaviour
-    void f() override {std::cout << "Derived::f()" << std::endl;}
+    void f() override {std::cout << "Derived::f()\n";}
 };
 
 int main()

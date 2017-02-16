@@ -68,25 +68,25 @@ int main()
 
     fruit = FruitFactory::make_fruit("apple");
     if (fruit)
-        std::cout << "Making: " << fruit->get_name() << std::endl;
+        std::cout << "Making: " << fruit->get_name() << '\n';
     else
-        std::cout << "Sorry, we don't have " << fruit->get_name() << std::endl;
+        std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
 
     fruit = FruitFactory::make_fruit("big apple");
     if (fruit)
-        std::cout << "Making: " << fruit->get_name() << std::endl;
+        std::cout << "Making: " << fruit->get_name() << '\n';
     else
-        std::cout << "Sorry, we don't have " << fruit->get_name() << std::endl;
+        std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
 
     fruit = FruitFactory::make_fruit("orange");
     if (fruit)
-        std::cout << "Making: " << fruit->get_name() << std::endl;
+        std::cout << "Making: " << fruit->get_name() << '\n';
     else
-        std::cout << "Sorry, we don't have " << fruit->get_name() << std::endl;
+        std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
 
     fruit = FruitFactory::make_fruit("banana");
     if (fruit)
-        std::cout << "Making an " << fruit->get_name() << std::endl;
+        std::cout << "Making an " << fruit->get_name() << '\n';
     else
-        std::cout << "Sorry, this fruit is too exotic to make!" << std::endl;
+        std::cout << "Sorry, this fruit is too exotic to make!\n";
 }

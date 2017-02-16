@@ -15,12 +15,12 @@ struct Impl1: Interface
 {
     void A() override
     {
-        std::cout << "Impl1::A()" << std::endl;
+        std::cout << "Impl1::A()\n";
     }
 
     void B() override
     {
-        std::cout << "Impl1::B()" << std::endl;
+        std::cout << "Impl1::B()\n";
     }
 };
 
@@ -29,12 +29,12 @@ struct Impl2: Interface
 {
     void A() override
     {
-        std::cout << "Impl2::A()" << std::endl;
+        std::cout << "Impl2::A()\n";
     }
 
     void B() override
     {
-        std::cout << "Impl2::B()" << std::endl;
+        std::cout << "Impl2::B()\n";
     }
 };
 

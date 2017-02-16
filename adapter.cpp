@@ -13,7 +13,7 @@ public:
     void draw_old() const
     {
         std::cout << "Old button. Coordinates: (" << _x1 << ", " << _y1
-                  << "), (" << _x2 << ", " << _y2 << ")" << std::endl;
+                  << "), (" << _x2 << ", " << _y2 << ")\n";
     }
 };
 
@@ -34,7 +34,7 @@ public:
     void draw() const override
     {
         std::cout << "New button. Coordinates: (" << _x1 << ", " << _y1
-                  << "), (" << _x2 << ", " << _y2 << ")" << std::endl;
+                  << "), (" << _x2 << ", " << _y2 << ")\n";
     }
 };
 

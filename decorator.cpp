@@ -16,7 +16,7 @@ class Window: public IWindow
 public:
     void draw() const override
     {
-        std::cout << "Basic Window" << std::endl;
+        std::cout << "Basic Window\n";
     }
 };
 
@@ -26,7 +26,7 @@ class FancyWindow: public Window
 public:
     void draw() const override
     {
-        std::cout << "Fancy Window" << std::endl;
+        std::cout << "Fancy Window\n";
     }
 };
 
@@ -52,7 +52,7 @@ public:
     void draw() const override
     {
         Decorator::draw();
-        std::cout << "\twith Border" << std::endl;
+        std::cout << "\twith Border\n";
     }
 };
 
@@ -65,7 +65,7 @@ public:
     void draw() const override
     {
         Decorator::draw();
-        std::cout << "\twith ScrollBar" << std::endl;
+        std::cout << "\twith ScrollBar\n";
     }
 };
 

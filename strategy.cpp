@@ -46,7 +46,7 @@ public:
     }
     void try_to_fly() const
     {
-        std::cout << '\t' << _flying_type->fly() << std::endl;
+        std::cout << '\t' << _flying_type->fly() << '\n';
     }
 };
 
@@ -65,15 +65,15 @@ public:
 int main()
 {
     Dog dog;
-    std::cout << "I'm a dog, trying to fly..." << std::endl;
+    std::cout << "I'm a dog, trying to fly...\n";
     dog.try_to_fly();
 
     Bird bird;
-    std::cout << "I'm a bird, trying to fly..." << std::endl;
+    std::cout << "I'm a bird, trying to fly...\n";
     bird.try_to_fly();
 
     // changing the algorithm (strategy) at runtime
-    std::cout << "I'm a bird, but changed my mind about flying..." << std::endl;
+    std::cout << "I'm a bird, but changed my mind about flying...\n";
     bird.set_flying_ability(std::make_unique<CantFly>());
     bird.try_to_fly();
 }

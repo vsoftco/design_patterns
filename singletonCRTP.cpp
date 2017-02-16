@@ -41,17 +41,17 @@ class Foo: public Singleton</*const*/ Foo>
     friend class Singleton<Foo>;
     Foo() // to prevent CASE 1
     {
-        std::cout << "Foo::Foo() private constructor" << std::endl;
+        std::cout << "Foo::Foo() private constructor\n";
     }
     // OK to be private, since Singleton<Foo> is a friend and can invoke it
     ~Foo() // to prevent CASE 2
     {
-        std::cout << "Foo::~Foo() private destructor" << std::endl;
+        std::cout << "Foo::~Foo() private destructor\n";
     }
 public:
     void say_hello()
     {
-        std::cout << "\t Hello from Singleton" << std::endl;
+        std::cout << "\t Hello from Singleton\n";
     }
 };
 

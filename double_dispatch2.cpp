@@ -47,17 +47,17 @@ public:
 // pair-wise interactions
 void cat_dog(const IAnimal& cat, const IAnimal& dog)
 {
-    std::cout << cat.name() << " plays with " << dog.name() << std::endl;
+    std::cout << cat.name() << " plays with " << dog.name() << '\n';
 }
 
 void cat_bird(const IAnimal& cat, const IAnimal& bird)
 {
-    std::cout << cat.name() << " plays with " << bird.name() << std::endl;
+    std::cout << cat.name() << " plays with " << bird.name() << '\n';
 }
 
 void dog_bird(const IAnimal& dog, const IAnimal& bird)
 {
-    std::cout << dog.name() << " plays with " << bird.name() << std::endl;
+    std::cout << dog.name() << " plays with " << bird.name() << '\n';
 }
 
 // assume symmetry for the other way around
