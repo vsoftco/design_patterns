@@ -116,7 +116,7 @@ int main()
     atm.dispense(1296);
     std::cout << '\n';
 
-    // instantiate the ATM with $50 handler as starting of the chain
+    // instantiate the ATM with $50 handler as the starting of the chain
     atm.set_start(handle_50);
     atm.dispense(443);
 }
