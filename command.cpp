@@ -16,7 +16,7 @@ public:
     virtual void down() = 0;
     virtual ~IDevice() = default;
 
-    bool get_state() const
+    bool is_on() const
     {
         return is_on_;
     }
@@ -156,6 +156,6 @@ int main()
 
     turn_off.execute();
 
-    std::cout << "TV in ON? " << std::boolalpha << tv.get_state() << '\n';
-    std::cout << "Final volume: " << tv.get_volume() << '\n';
+    std::cout << "Is the TV ON? " << std::boolalpha << tv.is_on() << '\n';
+    std::cout << "Final TV volume: " << tv.get_volume() << '\n';
 }
