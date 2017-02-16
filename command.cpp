@@ -7,14 +7,24 @@
 class IDevice
 {
 protected:
-    bool is_on = false;
-    size_t volume = 0;
+    bool is_on_ = false;
+    std::size_t volume_ = 0;
 public:
     virtual void on() = 0;
     virtual void off() = 0;
     virtual void up() = 0;
     virtual void down() = 0;
     virtual ~IDevice() = default;
+
+    bool get_state() const
+    {
+        return is_on_;
+    }
+
+    std::size_t get_volume() const
+    {
+        return volume_;
+    }
 };
 
 // command interface
@@ -34,28 +44,28 @@ class TV: public IDevice
 {
     void on() override
     {
-        is_on = true;
+        is_on_ = true;
         std::cout << "TV is ON\n";
     }
 
     void off() override
     {
-        is_on = false;
+        is_on_ = false;
         std::cout << "TV is OFF\n";
     }
 
     void up() override
     {
-        if (volume < 10)
-            ++volume;
-        std::cout << "Turning volume up to   " << volume << '\n';
+        if (volume_ < 10)
+            ++volume_;
+        std::cout << "Turning volume up to   " << volume_ << '\n';
     }
 
     void down() override
     {
-        if (volume > 0)
-            --volume;
-        std::cout << "Turning volume down to " << volume << '\n';
+        if (volume_ > 0)
+            --volume_;
+        std::cout << "Turning volume down to " << volume_ << '\n';
     }
 };
 
@@ -145,4 +155,7 @@ int main()
         turn_up.execute(); // the volume cannot be greater than 10
 
     turn_off.execute();
+
+    std::cout << "TV in ON? " << std::boolalpha << tv.get_state() << '\n';
+    std::cout << "Final volume: " << tv.get_volume() << '\n';
 }
