@@ -46,7 +46,6 @@ public:
     }
 };
 
-
 int main()
 {
     Collection<int> collection{0, 1, 2, 3};
