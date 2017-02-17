@@ -22,7 +22,7 @@ Book::~Book() = default; // need the destructor here for unique_ptr
 
 void Book::print()
 {
-    std::cout << "Title: " << upBookImpl->title << std::endl;
-    std::cout << "Price: " << upBookImpl->price << std::endl;
+    std::cout << "Title: " << upBookImpl->title << '\n';
+    std::cout << "Price: " << upBookImpl->price << '\n';
 }
 // END Book implementation
