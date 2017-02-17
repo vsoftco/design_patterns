@@ -7,20 +7,26 @@
 // basic elements interface
 struct IShape
 {
+    virtual void add(std::shared_ptr<IShape> elem) = 0 ;
     virtual void draw() const = 0;
 };
 
-// concrete basic elements
+// concrete basic element (leaf)
 class Circle: public IShape
 {
+    // this is a leaf, nothing to add
+    void add(std::shared_ptr<IShape> elem) override {} 
     void draw() const override
     {
         std::cout << "Drawing a Circle\n";
     }
 };
 
+// concrete basic element (leaf)
 class Square: public IShape
 {
+    // this is a leaf, nothing to add
+    void add(std::shared_ptr<IShape>) override {}
     void draw() const override
     {
         std::cout << "Drawing a Square\n";
@@ -32,7 +38,7 @@ class Composite: public IShape
 {
     std::vector<std::shared_ptr<IShape>> collection_;
 public:
-    void add(std::shared_ptr<IShape> elem)
+    void add(std::shared_ptr<IShape> elem) override
     {
         collection_.push_back(elem);
     }
