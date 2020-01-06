@@ -1,7 +1,7 @@
 // The pointer-to-implementation (PIMPL) idiom
 
 #include <iostream>
-#include "Book.h"
+#include "book.h"
 
 // BEGIN private implementation details
 struct Book::BookImpl
