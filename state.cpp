@@ -49,14 +49,12 @@ void Caps_ON::write(Type_Writter& type_writter, std::string what)
 {
     std::transform(std::begin(what), std::end(what), std::begin(what), ::toupper);
     std::cout << what;
-    type_writter.set_state(std::make_unique<Caps_OFF>()); // flip the state
 }
 
 void Caps_OFF::write(Type_Writter& type_writter, std::string what)
 {
     std::transform(std::begin(what), std::end(what), std::begin(what), ::tolower);
     std::cout << what;
-    type_writter.set_state(std::make_unique<Caps_ON>()); // flip the state
 }
 
 int main()
@@ -67,6 +65,9 @@ int main()
     // the state machine in action
     type_writter.write("Hello ");
     type_writter.write("World!\n");
+
+    // switch the state
+    type_writter.set_state(std::make_unique<Caps_ON>());
     type_writter.write("This ");
     type_writter.write("is ");
     type_writter.write("a ");
