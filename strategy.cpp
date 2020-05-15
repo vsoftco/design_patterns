@@ -5,65 +5,51 @@
 #include <string>
 
 // strategy interface
-struct IFlies
-{
+struct IFlies {
     virtual std::string fly() const = 0; // the algorithm (strategy)
     virtual ~IFlies() = default;
 };
 
 // algorithm (strategy)
-class Flies: public IFlies
-{
-public:
-    std::string fly() const override
-    {
-        return "Flying high!";
-    }
+class Flies : public IFlies {
+  public:
+    std::string fly() const override { return "Flying high!"; }
 };
 
 // algorithm (strategy)
-class CantFly: public IFlies
-{
-public:
-    std::string fly() const override
-    {
-        return "Can't fly :(";
-    }
+class CantFly : public IFlies {
+  public:
+    std::string fly() const override { return "Can't fly :("; }
 };
 
 // we implement the algorithm (strategy) via composition
-class Animal
-{
-private:
+class Animal {
+  private:
     std::unique_ptr<IFlies> _flying_type;
-public:
-    explicit Animal(std::unique_ptr<IFlies> flying_type) :
-        _flying_type{std::move(flying_type)} {}
 
-    void set_flying_ability(std::unique_ptr<IFlies> flying_type)
-    {
+  public:
+    explicit Animal(std::unique_ptr<IFlies> flying_type)
+        : _flying_type{std::move(flying_type)} {}
+
+    void set_flying_ability(std::unique_ptr<IFlies> flying_type) {
         _flying_type = std::move(flying_type);
     }
-    void try_to_fly() const
-    {
+    void try_to_fly() const {
         std::cout << '\t' << _flying_type->fly() << '\n';
     }
 };
 
-class Dog: public Animal
-{
-public:
-    Dog(): Animal(std::make_unique<CantFly>()) {}
+class Dog : public Animal {
+  public:
+    Dog() : Animal(std::make_unique<CantFly>()) {}
 };
 
-class Bird: public Animal
-{
-public:
-    Bird(): Animal(std::make_unique<Flies>()) {}
+class Bird : public Animal {
+  public:
+    Bird() : Animal(std::make_unique<Flies>()) {}
 };
 
-int main()
-{
+int main() {
     Dog dog;
     std::cout << "I'm a dog, trying to fly...\n";
     dog.try_to_fly();

@@ -5,56 +5,43 @@
 #include <vector>
 
 // basic elements interface
-struct IShape
-{
-    virtual void add(std::shared_ptr<IShape> elem) = 0 ;
+struct IShape {
+    virtual void add(std::shared_ptr<IShape> elem) = 0;
     virtual void draw() const = 0;
 };
 
 // concrete basic element (leaf)
-class Circle: public IShape
-{
+class Circle : public IShape {
     // this is a leaf, nothing to add
-    void add(std::shared_ptr<IShape> elem) override {} 
-    void draw() const override
-    {
-        std::cout << "Drawing a Circle\n";
-    }
+    void add(std::shared_ptr<IShape> elem) override {}
+    void draw() const override { std::cout << "Drawing a Circle\n"; }
 };
 
 // concrete basic element (leaf)
-class Square: public IShape
-{
+class Square : public IShape {
     // this is a leaf, nothing to add
     void add(std::shared_ptr<IShape>) override {}
-    void draw() const override
-    {
-        std::cout << "Drawing a Square\n";
-    }
+    void draw() const override { std::cout << "Drawing a Square\n"; }
 };
 
 // composite
-class Composite: public IShape
-{
+class Composite : public IShape {
     std::vector<std::shared_ptr<IShape>> collection_;
-public:
-    void add(std::shared_ptr<IShape> elem) override
-    {
+
+  public:
+    void add(std::shared_ptr<IShape> elem) override {
         collection_.push_back(elem);
     }
-    void draw() const override
-    {
+    void draw() const override {
         std::cout << "Composite\n";
         // delegate to the individual elements
-        for (auto && elem : collection_)
-        {
+        for (auto&& elem : collection_) {
             elem->draw();
         }
     }
 };
 
-int main()
-{
+int main() {
     auto circle = std::make_shared<Circle>();
     auto square = std::make_shared<Square>();
 

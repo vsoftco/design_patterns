@@ -6,27 +6,23 @@
 
 // generic Singleton
 template <typename T>
-class Singleton
-{
-protected:
-    Singleton(const Singleton&) = delete; // to prevent CASE 3
+class Singleton {
+  protected:
+    Singleton(const Singleton&) = delete;            // to prevent CASE 3
     Singleton& operator=(const Singleton&) = delete; // to prevent CASE 4
     Singleton() noexcept = default; // to allow creation of Singleton<Foo>
     // by the derived class Foo, since otherwise the (deleted)
     // copy constructor prevents the compiler from generating
     // a default constructor;
     // declared protected to prevent CASE 5
-public:
-    static T& get_instance()
-    noexcept(std::is_nothrow_constructible<T>::value)
-    {
+  public:
+    static T& get_instance() noexcept(std::is_nothrow_constructible<T>::value) {
         static T instance;
         return instance;
     }
     // thread local instance
-    static thread_local T& get_thread_local_instance()
-    noexcept(std::is_nothrow_constructible<T>::value)
-    {
+    static thread_local T& get_thread_local_instance() noexcept(
+        std::is_nothrow_constructible<T>::value) {
         static T instance;
         return instance;
     }
@@ -35,8 +31,7 @@ public:
 // specific Singleton instance
 // use const if you want a const instance returned
 // make the constructor and destructor private
-class Foo: public Singleton</*const*/ Foo>
-{
+class Foo : public Singleton</*const*/ Foo> {
     // so Singleton<Foo> can access the constructor and destructor of Foo
     friend class Singleton<Foo>;
     Foo() // to prevent CASE 1
@@ -48,15 +43,12 @@ class Foo: public Singleton</*const*/ Foo>
     {
         std::cout << "Foo::~Foo() private destructor\n";
     }
-public:
-    void say_hello()
-    {
-        std::cout << "\t Hello from Singleton\n";
-    }
+
+  public:
+    void say_hello() { std::cout << "\t Hello from Singleton\n"; }
 };
 
-int main()
-{
+int main() {
     Foo& sFoo = Foo::get_instance();
     sFoo.say_hello();
 
@@ -66,7 +58,8 @@ int main()
     Foo& sYetAnotherFoo = sFoo; // still OK, get the same instance
     sYetAnotherFoo.say_hello();
 
-    thread_local Foo& stlFoo = Foo::get_thread_local_instance(); // thread local instance
+    thread_local Foo& stlFoo =
+        Foo::get_thread_local_instance(); // thread local instance
     stlFoo.say_hello();
 
     // CASE 1: error: 'Foo::Foo()' is private

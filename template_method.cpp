@@ -3,12 +3,11 @@
 #include <iostream>
 #include <memory>
 
-class Base
-{
-    virtual void f() {std::cout << "Base::f()\n";}
-public:
-    void call()
-    {
+class Base {
+    virtual void f() { std::cout << "Base::f()\n"; }
+
+  public:
+    void call() {
         std::cout << "Before calling f()\n";
         f(); // run-time dispatch
         std::cout << "After calling f()\n";
@@ -16,14 +15,12 @@ public:
     virtual ~Base() = default;
 };
 
-class Derived: public Base
-{
+class Derived : public Base {
     // change behaviour
-    void f() override {std::cout << "Derived::f()\n";}
+    void f() override { std::cout << "Derived::f()\n"; }
 };
 
-int main()
-{
+int main() {
     std::unique_ptr<Base> pBase{std::make_unique<Derived>()};
     pBase->call();
 }

@@ -4,8 +4,7 @@
 
 #include "book.h"
 
-int main()
-{
+int main() {
     Book book("Robinson Crusoe", 10.99);
     book.print();
 }

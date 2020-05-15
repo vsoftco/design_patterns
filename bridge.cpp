@@ -3,64 +3,41 @@
 #include <iostream>
 #include <memory>
 
-struct Interface
-{
+struct Interface {
     virtual void A() = 0;
     virtual void B() = 0;
     virtual ~Interface() = default;
 };
 
 // first implementation
-struct Impl1: Interface
-{
-    void A() override
-    {
-        std::cout << "Impl1::A()\n";
-    }
+struct Impl1 : Interface {
+    void A() override { std::cout << "Impl1::A()\n"; }
 
-    void B() override
-    {
-        std::cout << "Impl1::B()\n";
-    }
+    void B() override { std::cout << "Impl1::B()\n"; }
 };
 
 // second implementation
-struct Impl2: Interface
-{
-    void A() override
-    {
-        std::cout << "Impl2::A()\n";
-    }
+struct Impl2 : Interface {
+    void A() override { std::cout << "Impl2::A()\n"; }
 
-    void B() override
-    {
-        std::cout << "Impl2::B()\n";
-    }
+    void B() override { std::cout << "Impl2::B()\n"; }
 };
 
 // concrete class that can change its interface
-class Foo
-{
+class Foo {
     std::unique_ptr<Interface> _ptr_impl;
-public:
-    explicit Foo(std::unique_ptr<Interface> ptr_impl) :
-        _ptr_impl{std::move(ptr_impl)} {}
-    void set_interface(std::unique_ptr<Interface> ptr_impl)
-    {
+
+  public:
+    explicit Foo(std::unique_ptr<Interface> ptr_impl)
+        : _ptr_impl{std::move(ptr_impl)} {}
+    void set_interface(std::unique_ptr<Interface> ptr_impl) {
         _ptr_impl = std::move(ptr_impl);
     }
-    void A()
-    {
-        _ptr_impl->A();
-    }
-    void B()
-    {
-        _ptr_impl->B();
-    }
+    void A() { _ptr_impl->A(); }
+    void B() { _ptr_impl->B(); }
 };
 
-int main()
-{
+int main() {
     // default interface
     Foo foo{std::make_unique<Impl1>()};
     foo.A();

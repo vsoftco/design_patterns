@@ -6,14 +6,14 @@
 #include <memory>
 #include <string>
 
-class Book
-{
-public:
+class Book {
+  public:
     // interface
     Book(const std::string& title, double price);
     ~Book(); // need to define it AFTER the definition of Book::BookImpl
     void print();
-private:
+
+  private:
     struct BookImpl;
     std::unique_ptr<BookImpl> upBookImpl;
 };

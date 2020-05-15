@@ -7,31 +7,25 @@
 #include <vector>
 
 // observer interface
-struct IObserver
-{
+struct IObserver {
     virtual void notify() const = 0;
     virtual ~IObserver() = default;
 };
 
 // concrete observer
-class Observer: public IObserver
-{
+class Observer : public IObserver {
     std::size_t _ID;
-public:
-    explicit Observer(std::size_t ID): _ID{ID} {}
-    void notify() const override
-    {
+
+  public:
+    explicit Observer(std::size_t ID) : _ID{ID} {}
+    void notify() const override {
         std::cout << "\tObserver " << _ID << " notified!\n";
     }
-    std::size_t ID() const
-    {
-        return _ID;
-    }
+    std::size_t ID() const { return _ID; }
 };
 
 // subject interface
-struct ISubject
-{
+struct ISubject {
     virtual void registerObserver(std::shared_ptr<Observer> spo) = 0;
     virtual void unregisterObserver(std::shared_ptr<Observer> spo) = 0;
     virtual void notifyObservers() const = 0;
@@ -39,27 +33,23 @@ struct ISubject
 };
 
 // concrete subject
-class Subject: public ISubject
-{
+class Subject : public ISubject {
     std::map<std::size_t, std::shared_ptr<Observer>> _observers{};
-public:
-    void registerObserver(std::shared_ptr<Observer> spo) override
-    {
+
+  public:
+    void registerObserver(std::shared_ptr<Observer> spo) override {
         _observers[spo->ID()] = spo;
     }
-    void unregisterObserver(std::shared_ptr<Observer> spo) override
-    {
+    void unregisterObserver(std::shared_ptr<Observer> spo) override {
         _observers.erase(spo->ID());
     }
-    void notifyObservers() const override
-    {
+    void notifyObservers() const override {
         for (auto& elem : _observers)
             elem.second->notify();
     }
 };
 
-int main()
-{
+int main() {
     // 1 subject
     Subject subject;
 

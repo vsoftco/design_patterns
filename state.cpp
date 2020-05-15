@@ -7,58 +7,48 @@
 #include <string>
 
 // state interface
-struct IState
-{
+struct IState {
     virtual void write(class Type_Writter& type_writter, std::string what) = 0;
     virtual ~IState() = default;
 };
 
 // context, we model a type writter with 2 states: Caps ON and Caps OFF
 // that keep switching automatically
-class Type_Writter
-{
-protected:
+class Type_Writter {
+  protected:
     std::unique_ptr<IState> state_;
-public:
-    Type_Writter(std::unique_ptr<IState> state): state_{std::move(state)} {}
-    void set_state(std::unique_ptr<IState> state)
-    {
-        state_ = std::move(state);
-    }
-    void write(const std::string& what)
-    {
-        state_->write(*this, what);
-    }
+
+  public:
+    Type_Writter(std::unique_ptr<IState> state) : state_{std::move(state)} {}
+    void set_state(std::unique_ptr<IState> state) { state_ = std::move(state); }
+    void write(const std::string& what) { state_->write(*this, what); }
 };
 
 // concrete states
-class Caps_ON: public IState
-{
-public:
+class Caps_ON : public IState {
+  public:
     void write(Type_Writter& type_writter, std::string what) override;
 };
 
-class Caps_OFF: public IState
-{
-public:
+class Caps_OFF : public IState {
+  public:
     void write(Type_Writter& type_writter, std::string what) override;
 };
 
 // implementation of concrete states
-void Caps_ON::write(Type_Writter& type_writter, std::string what)
-{
-    std::transform(std::begin(what), std::end(what), std::begin(what), ::toupper);
+void Caps_ON::write(Type_Writter& type_writter, std::string what) {
+    std::transform(std::begin(what), std::end(what), std::begin(what),
+                   ::toupper);
     std::cout << what;
 }
 
-void Caps_OFF::write(Type_Writter& type_writter, std::string what)
-{
-    std::transform(std::begin(what), std::end(what), std::begin(what), ::tolower);
+void Caps_OFF::write(Type_Writter& type_writter, std::string what) {
+    std::transform(std::begin(what), std::end(what), std::begin(what),
+                   ::tolower);
     std::cout << what;
 }
 
-int main()
-{
+int main() {
     // the context
     Type_Writter type_writter{std::make_unique<Caps_OFF>()};
 
