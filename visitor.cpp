@@ -51,26 +51,26 @@ void Train::accept(IVisitor& visitor) { visitor.visit(*this); }
 // define as many visitors as you want
 // first type of visitor, implement some functionality
 class VisitorOne : public IVisitor {
-    virtual void visit(Car& car) override {
+    void visit(Car& car) override {
         std::cout << "Visitor one on " << car.car() << '\n';
     }
-    virtual void visit(Plane& plane) override {
+    void visit(Plane& plane) override {
         std::cout << "Visitor one on " << plane.plane() << '\n';
     }
-    virtual void visit(Train& train) override {
+    void visit(Train& train) override {
         std::cout << "Visitor one on " << train.train() << '\n';
     }
 };
 
 // second type of visitor, different functionality
 class VisitorTwo : public IVisitor {
-    virtual void visit(Car& car) override {
+    void visit(Car& car) override {
         std::cout << "Visitor two on " << car.car() << '\n';
     }
-    virtual void visit(Plane& plane) override {
+    void visit(Plane& plane) override {
         std::cout << "Visitor two on " << plane.plane() << '\n';
     }
-    virtual void visit(Train& train) override {
+    void visit(Train& train) override {
         std::cout << "Visitor two on " << train.train() << '\n';
     }
 };
@@ -82,9 +82,9 @@ int main() {
     Train train;
 
     std::vector<std::reference_wrapper<IObject>> objects;
-    objects.push_back(car);
-    objects.push_back(plane);
-    objects.push_back(train);
+    objects.emplace_back(car);
+    objects.emplace_back(plane);
+    objects.emplace_back(train);
 
     // visitors
     VisitorOne vis_one;
