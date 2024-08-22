@@ -1,8 +1,8 @@
 // Double dispatching via function maps
 
 #include <iostream>
-#include <memory>
 #include <map>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <typeindex>
@@ -79,9 +79,10 @@ void play(const IAnimal& first, const IAnimal& second) {
     auto type_idx_second = std::type_index(typeid(second));
 
     auto found = play_map.find({type_idx_first, type_idx_second});
-    if (found == play_map.end())
+    if (found == play_map.end()) {
         throw std::runtime_error(
             "No dispatching function in the function map!");
+    }
     play_map[found->first](first, second);
 }
 

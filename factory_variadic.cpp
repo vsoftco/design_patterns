@@ -13,11 +13,11 @@ class Factory {
 };
 
 struct Foo {
-    Foo(int){};
+    Foo(int) {};
 };
 
 struct Bar {
-    Bar(bool, double){};
+    Bar(bool, double) {};
 };
 
 int main() {

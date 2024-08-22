@@ -44,8 +44,9 @@ class Subject : public ISubject {
         _observers.erase(spo->ID());
     }
     void notifyObservers() const override {
-        for (auto& elem : _observers)
+        for (auto& elem : _observers) {
             elem.second->notify();
+        }
     }
 };
 
@@ -56,13 +57,15 @@ int main() {
     // N observers
     std::size_t N = 4;
     std::vector<std::shared_ptr<Observer>> vobs;
-    for (std::size_t i = 0; i < N; ++i)
+    for (std::size_t i = 0; i < N; ++i) {
         vobs.push_back(std::make_shared<Observer>(i));
+    }
 
     // register all of them
     std::cout << "Registering all " << N << " Observers...\n";
-    for (std::size_t i = 0; i < vobs.size(); ++i)
+    for (std::size_t i = 0; i < vobs.size(); ++i) {
         subject.registerObserver(vobs[i]);
+    }
 
     // notify
     std::cout << "Notifying all " << N << " Observers...\n";

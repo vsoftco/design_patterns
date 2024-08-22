@@ -46,14 +46,16 @@ class TV : public IDevice {
     }
 
     void up() override {
-        if (volume_ < 10)
+        if (volume_ < 10) {
             ++volume_;
+        }
         std::cout << "Turning volume up to   " << volume_ << '\n';
     }
 
     void down() override {
-        if (volume_ > 0)
+        if (volume_ > 0) {
             --volume_;
+        }
         std::cout << "Turning volume down to " << volume_ << '\n';
     }
 };
@@ -111,8 +113,9 @@ int main() {
     turn_up.undo();
     turn_up.undo(); // the volume cannot be less than zero
 
-    for (std::size_t i = 0; i < 12; ++i)
+    for (std::size_t i = 0; i < 12; ++i) {
         turn_up.execute(); // the volume cannot be greater than 10
+    }
 
     turn_off.execute();
 

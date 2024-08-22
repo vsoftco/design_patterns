@@ -35,12 +35,13 @@ class FruitFactory {
     FruitFactory() = delete;
 
     std::unique_ptr<IFruit> static make_fruit(const std::string& fruit) {
-        if (fruit == "apple")
+        if (fruit == "apple") {
             return std::make_unique<Apple>();
-        else if (fruit == "big apple")
+        } else if (fruit == "big apple") {
             return std::make_unique<BigApple>();
-        else if (fruit == "orange")
+        } else if (fruit == "orange") {
             return std::make_unique<Orange>();
+        }
 
         return nullptr;
     }
@@ -50,26 +51,30 @@ int main() {
     std::unique_ptr<IFruit> fruit;
 
     fruit = FruitFactory::make_fruit("apple");
-    if (fruit)
+    if (fruit) {
         std::cout << "Making: " << fruit->get_name() << '\n';
-    else
+    } else {
         std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
+    }
 
     fruit = FruitFactory::make_fruit("big apple");
-    if (fruit)
+    if (fruit) {
         std::cout << "Making: " << fruit->get_name() << '\n';
-    else
+    } else {
         std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
+    }
 
     fruit = FruitFactory::make_fruit("orange");
-    if (fruit)
+    if (fruit) {
         std::cout << "Making: " << fruit->get_name() << '\n';
-    else
+    } else {
         std::cout << "Sorry, we don't have " << fruit->get_name() << '\n';
+    }
 
     fruit = FruitFactory::make_fruit("banana");
-    if (fruit)
+    if (fruit) {
         std::cout << "Making an " << fruit->get_name() << '\n';
-    else
+    } else {
         std::cout << "Sorry, this fruit is too exotic to make!\n";
+    }
 }
